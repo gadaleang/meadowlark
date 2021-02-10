@@ -5,6 +5,10 @@ const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 3000
 const fortune = require('./lib/fortune')
+const tours = [
+    { id: 0, name: 'Hood River', price: 99.99 },
+    { id: 1, name: 'Oregon Coast', price: 149.95 },
+    ]
 
 //configure Handlebars view engine
 app.engine('handlebars', expressHandlebars({
@@ -38,6 +42,23 @@ app.get('/text', (req, res) => {
     res.type('text/plain')
     res.send('Acesta este un test')
 })
+
+app.get('/api/tours', (req, res) => {
+    const toursXml = '<?xml version="1.0"?><tours>' + 
+    tours.map(p =>
+        `<tour price="${p.price}" id="${p.id}">${p.name}</tour>`
+    ).join('') + '</tours>'
+    const toursText = tours.map(p =>
+        `${p.id}: ${p.name} (${p.price})`
+    ).join('\n')
+    res.format({'application/json': () => res.json(tours),
+        'application/xml': () => res.type('application/xml').send(toursXml),
+        'text/xml': () => res.type('text/xml').send(toursXml),
+        'txt/plain': () => res.type('text/plain').send(toursXml),
+    })
+})
+
+
 
 app.get('/headers', (req, res) => {
     res.type('text/plain')
