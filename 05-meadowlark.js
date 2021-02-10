@@ -22,6 +22,7 @@ app.get('/about', (req, res) => {
 })
 */
 app.get('/about', handlers.about)
+
 // custom 404 page
 /*
 app.use((req, res) => {    
@@ -39,6 +40,7 @@ app.use((err, req, res, next) =>{
     res.render('500')
 })
 */
+
 app.get('/headers', (req, res) => {
     res.type('text/plain')
     const headers = Object.entries(req.headers).map(([key, value]) => `${key}: ${value}`)
@@ -49,5 +51,5 @@ app.use(handlers.serverError)
 
 
 app.listen(port, () => console.log(
-    `Express started on http://localhost:${port}; ` +
-    `press Ctrl-C to terminate.`))
+    `Express a pornit la http://localhost:${port}; ` +
+    `apasa Ctrl-C pentru terminare.`))
