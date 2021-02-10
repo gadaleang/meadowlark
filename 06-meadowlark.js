@@ -51,6 +51,20 @@ app.put('/api/tour/:id', (req, res) => {
     res.json({ success: true })
     })
 
+    app.delete('/api/tour/:id', (req, res) => {
+        const idx = tours.findindex(tour => tour.id === parseInt(req.params.id))
+        if(idx<0) return res.json({error: 'Nu exusta turul asta'})
+        tours.splice(idx, 1)
+        res.json({ success: true })
+        })
+
+    app.put('/api/tour/:id', (req, res) => {
+        const p = tours.find(p => p.id === parseInt(req.params.id))
+        if(!p) return res.status(404).json({ error: 'No such tour exists' })
+        if(req.body.name) p.name = req.body.name
+        if(req.body.price) p.price = req.body.price
+        res.json({ success: true })
+        })
 
 app.get('/api/tours', (req, res) => {
     const toursXml = '<?xml version="1.0"?><tours>' + 
