@@ -23,6 +23,30 @@ app.get('/about', (req, res) => {
 */
 app.get('/about', handlers.about)
 
+app.get('/greeting', (req,res) => {
+    res.render('greeting', {
+        message: 'Hello esteemed programmer!',
+        style: req.query.style,
+        userid: req.cookies.userid,
+        username: req.session.username
+    })
+})
+
+app.get('/no-layout', (req,res) => 
+    res.render('no-layout', { layout: null })
+)
+
+app.get('/text', (req, res) => {
+    res.type('text/plain')
+    res.send('Acesta este un test')
+})
+
+app.get('/headers', (req, res) => {
+    res.type('text/plain')
+    const headers = Object.entries(req.headers).map(([key, value]) => `${key}: ${value}`)
+    res.send(headers.join('\n'))
+})
+
 // custom 404 page
 /*
 app.use((req, res) => {    
@@ -40,12 +64,6 @@ app.use((err, req, res, next) =>{
     res.render('500')
 })
 */
-
-app.get('/headers', (req, res) => {
-    res.type('text/plain')
-    const headers = Object.entries(req.headers).map(([key, value]) => `${key}: ${value}`)
-    res.send(headers.join('\n'))
-})
 
 app.use(handlers.serverError)
 
