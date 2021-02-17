@@ -66,10 +66,12 @@ app.use(handlers.notFound)
 app.use(handlers.serverError)
 
 if(require.main === module) {
+  // this module was run directly from the command line as in node xxx.js
   app.listen(port, () => {
     console.log( `Express started on http://localhost:${port}` +
       '; press Ctrl-C to terminate.' )
   })
 } else {
+   // this module was not run directly from the command line and probably loaded by something else
   module.exports = app
 }
