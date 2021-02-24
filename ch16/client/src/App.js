@@ -13,7 +13,7 @@ import Vacations from './Vacations'
 function Home() {
   return (
     <div>
-      <h2>Welcome to Meadowlark Travel</h2>
+      <h2>Welcome to -Meadowlark-Travel-</h2>
       <ul>
         <li>Check out our "<Link to="/about">About</Link>" page!</li>
         <li>And our <Link to="/vacations">vacations</Link>!</li>
